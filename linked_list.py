@@ -13,6 +13,7 @@ class LinkedList:
         self.value = value
         self.next = self
         self.prev = self
+        self.size = 0
 
     def is_sentinel(self):
         if self.value == None:
@@ -21,21 +22,71 @@ class LinkedList:
             return False
         
     def is_empty(self):
-        if self.next == self.prev:
-            return True
-        else:
-            return False
-
+        return self.next is self and self.prev is self
+       
     def is_last(self):
-        if self.is_sentinel() == True:
-            return True
+        return self.next.is_sentinel()
 
     def last(self):
-        if self.is_last() == True and self.is_empty() == True:
+        if self.is_last():
             return self
+        return self.next.last()
+            
 
     def append(self, appendee):
-        self.next = appendee.prev
+        if self.is_empty() == True:
+            self.prev = appendee
+            self.next = appendee
+            appendee.prev = self
+            appendee.next = self
+            self.size += 1
+        elif self.is_sentinel():
+            self.size += 1
+            self.prev = appendee
+            appendee.next = self
+            self = self.last()
+            self.next = appendee
+            appendee.prev = self
+            return self.next.append(appendee)
+
+   
+    def delete(self):
+        self.next.prev = self.prev
+        self.prev.next = self.next
+        
+
+    def insert(self, ins):
+        ins.prev = self
+        ins.next = self.next
+        self.next.prev = ins
+        self.next = ins
+
+
+    def at(self, N):
+        x = 0
+        while x < N:
+            self = self.next
+            x += 1
+            return self
+        
+         
+
+
+
+        
+        
+
+
+
+    
+
+    
+    
+
+    
+
+
+    
 
 
     
