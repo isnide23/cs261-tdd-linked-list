@@ -67,7 +67,27 @@ class LinkedList:
         while x < N:
             self = self.next
             x += 1
+        return self
+        
+    def search(self, value):
+        if self.value == value:
             return self
+        elif self.next.value is None: 
+            return None
+        return self.next.search(value)
+            
+
+    def insert_in_order(self, ins):
+        if self.next is self:
+            self.append(ins)
+        elif ins.value >= self.next.value and self.next is not self:
+            self = self.next
+            self.insert_in_order(ins)
+        elif ins.value <= self.next.value:
+            self.insert(ins)
+         
+        
+        
         
          
 
